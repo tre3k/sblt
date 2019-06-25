@@ -15,13 +15,22 @@
 
 #include "sblt.h"
 
+
+/* need get this values from config */
 #define PID_FILENAME "/tmp/sbltd.pid"
-#define BUFFER_SIZE 1024
 #define LISTEN 10
+//need autofind this paths
+#define BRIGHTNESS_PATH "/sys/class/backlight/intel_backlight/brightness"
+#define MAX_BRIGHTNESS_PATH "/sys/class/backlight/intel_backlight/max_brightness"
+ 
 
 /* function for write message to log file */
 void log_message(char *message){
   printf("%s\n",message);
+
+  /* set time */
+  /* write message to file */
+
   return;
 }
 
@@ -102,8 +111,12 @@ int main(int argc,char **argv){
       log_message("Error accept");
       exit(EXIT_FAILURE);
     }
+
+    log_message("accept");
+    
     bzero(buff,BUFFER_SIZE);
-    recv(sockfd,buff,sizeof(buff),0);
+    //recv(sockfd,buff,sizeof(buff),0);
+    send(sockfd,"hhh\n",4,0);
   }
   
   
