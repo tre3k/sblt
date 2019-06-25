@@ -12,10 +12,12 @@ int main(int argc,char **argv){
   struct sockaddr_un s_sun;
   char buff[BUFFER_SIZE];
 
+  /*
   if(argc < 2){
     printf("%s <percent value>\n",argv[0]);
     exit(EXIT_SUCCESS);
   }
+  */
   
   sockfd = socket(AF_UNIX,SOCK_STREAM,0);
 

@@ -58,12 +58,14 @@ int get_max_value_brightness(void){
 }
 
 void set_brightness(int value){
+  char buff[16];
   int fd = open(BRIGHTNESS_PATH,O_WRONLY);
+  
   if(fd < 0){
     log_message("Error open brightness");
   }
-
-  char buff[16];
+  
+  sprintf(buff,"%d",value);
   if(write(fd,buff,strlen(buff)) < 0){
     log_message("Error write to brightness");
   }
