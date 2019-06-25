@@ -27,8 +27,6 @@
 
 /* function for write message to log file */
 void log_message(char *message){
-  printf("%s\n",message);
-
   /* set time */
   /* write message to file */
 
@@ -66,13 +64,11 @@ void set_brightness(int value){
   }
 
   char buff[16];
-  sprintf(buff,"%d\x00",value);
   if(write(fd,buff,strlen(buff)) < 0){
     log_message("Error write to brightness");
   }
   
   close(fd);
-  
   return;
 }
 
@@ -117,14 +113,11 @@ int main(int argc,char **argv){
     exit(EXIT_FAILURE);
   }
 
-  /*
   close(STDIN_FILENO);
   close(STDOUT_FILENO);
   close(STDERR_FILENO);
-  */
 
   /* start daemon */
-
   sockfd = socket(AF_UNIX,SOCK_STREAM,0);   // create unix socket for server
   if(sockfd < 0){                           // if error
     log_message("Error create socket");
@@ -134,16 +127,20 @@ int main(int argc,char **argv){
   /* bind and listen */
   s_sun.sun_family = AF_UNIX;
   strcpy(s_sun.sun_path,SOCK_FILENAME);
+
   unlink(SOCK_FILENAME);
+
   if(bind(sockfd,(struct sockaddr *)&s_sun,sizeof(s_sun)) < 0){
     log_message("Error bind");
     exit(EXIT_FAILURE);
   }
+
   if(listen(sockfd,LISTEN) < 0){
     log_message("Error listen");
     close(sockfd);
     exit(EXIT_FAILURE);
   }
+
 
   log_message("Start main loop");
   /* main loop */
