@@ -12,6 +12,10 @@ int main(int argc,char **argv){
   struct sockaddr_un s_sun;
   char buff[BUFFER_SIZE];
 
+  if(argc < 2){
+    printf("%s <percent value>\n",argv[0]);
+    exit(EXIT_SUCCESS);
+  }
   
   sockfd = socket(AF_UNIX,SOCK_STREAM,0);
 
@@ -24,14 +28,8 @@ int main(int argc,char **argv){
     exit(EXIT_FAILURE);
   }
 
-  //sprintf(buff,"hello!\n");
-  //send(sockfd,buff,sizeof(buff),0);
-  //bzero(buff,sizeof(buff));
-  printf("recv\n");
-  
-  recv(sockfd,buff,sizeof(buff),0);
-  printf("buff %s size: %d\n",buff,sizeof(buff));
-  
+  sprintf(buff,"%s",argv[1]);
+  send(sockfd,buff,BUFFER_SIZE,0);
   
   close(sockfd);
   
