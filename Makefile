@@ -19,9 +19,12 @@ sbltd.o:
 install:
 	install -Dm755 ${BIN_SBLT} /usr/bin/sblt
 	install -Dm755 ${BIN_SBLTD} /usr/bin/sbltd
-uninistall:
+	install -Dm755 sbltd-stop.sh /usr/bin/sbltd-stop.sh
+
+uninstall:
 	rm -rf /usr/bin/sblt
 	rm -rf /usr/bin/sbltd
+	rm -rf /usr/bin/sbltd-stop.sh
 
 clean:
 	rm -rf ${BIN_SBLT} ${BIN_SBLTD} ${BIN_SBLT}.o ${BIN_SBLTD}.o

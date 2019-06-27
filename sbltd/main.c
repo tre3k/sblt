@@ -23,7 +23,7 @@
 #define BRIGHTNESS_PATH "/sys/class/backlight/intel_backlight/brightness"
 #define MAX_BRIGHTNESS_PATH "/sys/class/backlight/intel_backlight/max_brightness"
 #define LOG_PATH "/var/log/sbltd.log"
-
+#define BUFFER_SIZE 128
 
 /* function for write message to log file */
 void log_message(char *message){
@@ -93,8 +93,6 @@ void set_brightness(int value){
   close(fd);
   return;
 }
-
-
 
 int main(int argc,char **argv){
   pid_t sid, pid;                  // var for sid and pid
@@ -189,22 +187,17 @@ int main(int argc,char **argv){
       set_brightness(value);
       break;
 
-    case CMD_ADD:
+    case CMD_CNG:
       set_brightness(get_brightness()+value);
       break;
-
-    case CMD_SUB:
-      set_brightness(get_brightness()-value);
-      break;
-      
-    case CMD_GET:
-      break;
-      
-    }
-
-    
-  }
   
+    case CMD_GET:
+      pack.command = CMD_GET;
+      pack.value = 100*get_brightness()/max_value;
+      send(client_sock,&pack,sizeof(pack),0);
+      break;
+    }  
+  }
   
   return 0;
 }
