@@ -1,4 +1,5 @@
-/* main.c - sblt (Simple BackLight Client)
+/* main.c - sblt (Simple BackLighT Client)
+ * Autor: Kirill Pshenichnyi
  */
 
 #include <stdio.h>

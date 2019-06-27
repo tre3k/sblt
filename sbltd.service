@@ -1,0 +1,11 @@
+[Unit]
+Description=Simple BackLihgT daemon
+
+[Service]
+User=root
+Type=forking
+ExecStart=/usr/bin/sbltd
+ExecStop=/usr/bin/sbltd-stop.sh
+
+[Install]
+WantedBy=multi-user.target

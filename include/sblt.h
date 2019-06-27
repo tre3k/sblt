@@ -1,3 +1,7 @@
+/* sblt.h 
+ * Autor: Kirill Pshenichny  
+ */
+
 #ifndef SBLT_H
 #define SBLT_H
 

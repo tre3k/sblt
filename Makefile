@@ -1,3 +1,4 @@
+#CC=clang
 CC=gcc
 
 INCLUDE_PATH=include/
@@ -20,11 +21,13 @@ install:
 	install -Dm755 ${BIN_SBLT} /usr/bin/sblt
 	install -Dm755 ${BIN_SBLTD} /usr/bin/sbltd
 	install -Dm755 sbltd-stop.sh /usr/bin/sbltd-stop.sh
+	install -Dm664 sbltd.service /etc/systemd/system/sbltd.service
 
 uninstall:
 	rm -rf /usr/bin/sblt
 	rm -rf /usr/bin/sbltd
 	rm -rf /usr/bin/sbltd-stop.sh
+	rm -rf /etc/systemd/system/sbltd.service
 
 clean:
 	rm -rf ${BIN_SBLT} ${BIN_SBLTD} ${BIN_SBLT}.o ${BIN_SBLTD}.o

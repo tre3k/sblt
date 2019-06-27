@@ -1,6 +1,5 @@
-/* main.c - sbltd (Simple BackLight Daemon) 
- *  
- *
+/* main.c - sbltd (Simple BackLighT Daemon) 
+ * Autor: Kirill Pshenichny  
  */
 
 #include <stdio.h>
