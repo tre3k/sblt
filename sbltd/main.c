@@ -57,6 +57,26 @@ int get_max_value_brightness(void){
   return atoi(buff);
 }
 
+int get_brightness(void){
+  int fd = open(BRIGHTNESS_PATH,O_RDONLY);
+  if(fd < 0){
+    log_message("Error get value of brightness");
+  }
+  char buff[16];
+  char tmp;
+  int i;
+
+  i=0;
+  while(read(fd,&tmp,1) > 0){
+    if(i>15) break;
+    buff[i] = tmp;
+    i++;
+  }
+  
+  close(fd);
+  return atoi(buff);
+}
+
 void set_brightness(int value){
   char buff[16];
   int fd = open(BRIGHTNESS_PATH,O_WRONLY);
@@ -74,6 +94,8 @@ void set_brightness(int value){
   return;
 }
 
+
+
 int main(int argc,char **argv){
   pid_t sid, pid;                  // var for sid and pid
   int fd_pid;
@@ -86,6 +108,7 @@ int main(int argc,char **argv){
   int p_value,value;
   int max_value = get_max_value_brightness();
 
+  struct packet pack;
   
   /* create children process */
   pid = fork();
@@ -156,14 +179,30 @@ int main(int argc,char **argv){
     }
 
     /* recevery value */
-    bzero(buff,BUFFER_SIZE);
-    recv(client_sock,buff,BUFFER_SIZE,0);
+    recv(client_sock,&pack,sizeof(pack),0);
 
-    p_value = atoi(buff);
-    value = p_value*max_value/100;
+    value = pack.value*max_value/100;
     if(value > max_value) value = max_value;
+    
+    switch(pack.command){
+    case CMD_SET:
+      set_brightness(value);
+      break;
 
-    set_brightness(value);
+    case CMD_ADD:
+      set_brightness(get_brightness()+value);
+      break;
+
+    case CMD_SUB:
+      set_brightness(get_brightness()-value);
+      break;
+      
+    case CMD_GET:
+      break;
+      
+    }
+
+    
   }
   
   

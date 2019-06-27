@@ -12,12 +12,15 @@ int main(int argc,char **argv){
   struct sockaddr_un s_sun;
   char buff[BUFFER_SIZE];
 
-  /*
   if(argc < 2){
-    printf("%s <percent value>\n",argv[0]);
+    printf("%s <value> (in %)\n",argv[0]);
+    printf("\t <value> - absolute\n"
+	   "\t+<value> - add value\n"
+	   "\t-<value> - sub value\n");
     exit(EXIT_SUCCESS);
   }
-  */
+  
+  struct packet pack;
   
   sockfd = socket(AF_UNIX,SOCK_STREAM,0);
 
@@ -30,11 +33,24 @@ int main(int argc,char **argv){
     exit(EXIT_FAILURE);
   }
 
-  sprintf(buff,"%s",argv[1]);
-  send(sockfd,buff,BUFFER_SIZE,0);
+
+
+  switch(argv[1][0]){
+  case '+':
+    pack.command = CMD_ADD;
+    pack.value = atoi(argv[1]);
+    
+    break;
+
+  default:
+    pack.command = CMD_SET;
+    pack.value = atoi(argv[1]);
+    break;
+  }
   
+  
+  send(sockfd,&pack,sizeof(pack),0);
   close(sockfd);
-  
   
   return 0;
 }
