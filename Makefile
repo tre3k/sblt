@@ -1,4 +1,3 @@
-#CC=clang
 CC=gcc
 
 INCLUDE_PATH=include/
@@ -11,8 +10,8 @@ BIN_SBLTD=sbltd/sbltd
 all: sblt.all
 
 sblt.all: sblt.o sbltd.o
-	${CC} ${BIN_SBLT}.o -o ${BIN_SBLT} 
-	${CC} ${BIN_SBLTD}.o -o ${BIN_SBLTD} 
+	${CC} ${BIN_SBLT}.o -o ${BIN_SBLT}
+	${CC} ${BIN_SBLTD}.o -o ${BIN_SBLTD}
 sblt.o:
 	${CC} ${SRC_SBLT} -c -o ${BIN_SBLT}.o -I ${INCLUDE_PATH}
 sbltd.o:
