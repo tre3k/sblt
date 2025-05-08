@@ -1,5 +1,5 @@
 /*
- *  Copyright (c) 2019-2022 Kirill Pshenichnyi, Gatchina, LO, 188300 Russia
+ *  Copyright (c) 2019-2025 Kirill Pshenichnyi, Gatchina, LO, 188300 Russia
  *
  *  This file is part of sblt
  *
@@ -19,25 +19,29 @@
  *     Author: Kirill Pshenichnyi <pshcyrill@mail.ru>
  */
 
-#ifndef SBLT_H
-#define SBLT_H
+#ifndef _SBLT_H_
+#define _SBLT_H_
 
 #include <sys/socket.h>
 #include <sys/un.h>
 
+#define PID_FILENAME "/tmp/sbltd.pid"
 #define SOCK_FILENAME "/tmp/sbltd.sock"
 
-enum{
-	CMD_ECHO,
-	CMD_SET,
-	CMD_CNG,
-	CMD_GET
+#define BRIGHTNESS_DEV "/sys/class/backlight/intel_backlight/"
+#define BRIGHTNESS_PATH BRIGHTNESS_DEV "brightness"
+#define MAX_BRIGHTNESS_PATH BRIGHTNESS_DEV "max_brightness"
+
+enum {
+        CMD_ECHO,
+        CMD_SET,
+        CMD_CNG,
+        CMD_GET
 };
 
-struct packet{
-	char command;
-	int value;
+struct packet {
+        char command;
+        int value;
 };
-
 
 #endif
