@@ -1,21 +1,23 @@
-CC=gcc
+CC ?= cc
 
-INCLUDE_PATH=include/
-SRC_SBLT=sblt/main.c
-SRC_SBLTD=sbltd/main.c
+INCLUDE_PATH := include/
+SRC_SBLT := sblt/main.c
+SRC_SBLTD := sbltd/main.c
 
-BIN_SBLT=sblt/sblt
-BIN_SBLTD=sbltd/sbltd
+BIN_SBLT := sblt/sblt
+BIN_SBLTD := sbltd/sbltd
+
+CFLAGS := ${CFLAGS} -O2 -Wall
 
 all: sblt.all
 
 sblt.all: sblt.o sbltd.o
-	${CC} ${BIN_SBLT}.o -o ${BIN_SBLT}
-	${CC} ${BIN_SBLTD}.o -o ${BIN_SBLTD}
+	${CC} ${CFLAGS} ${BIN_SBLT}.o -o ${BIN_SBLT}
+	${CC} ${CFLAGS} ${BIN_SBLTD}.o -o ${BIN_SBLTD}
 sblt.o:
-	${CC} ${SRC_SBLT} -c -o ${BIN_SBLT}.o -I ${INCLUDE_PATH}
+	${CC} ${CFLAGS} ${SRC_SBLT} -c -o ${BIN_SBLT}.o -I ${INCLUDE_PATH}
 sbltd.o:
-	${CC} ${SRC_SBLTD} -c -o ${BIN_SBLTD}.o -I ${INCLUDE_PATH}
+	${CC} ${CFLAGS} ${SRC_SBLTD} -c -o ${BIN_SBLTD}.o -I ${INCLUDE_PATH}
 install:
 	install -Dm755 ${BIN_SBLT} ${DESTDIR}/usr/bin/sblt
 	install -Dm755 ${BIN_SBLTD} ${DESTDIR}/usr/bin/sbltd
