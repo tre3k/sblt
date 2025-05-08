@@ -99,6 +99,9 @@ void set_brightness(int value) {
 int main(int argc, char **argv) {
         const unsigned int BUFFER_SIZE = 128;
         const unsigned int LISTEN = 10;
+
+        bool toggle = true;
+        int saved_toggle_value;
         pid_t pid;
         int fd_pid;
         char buff[BUFFER_SIZE];
@@ -187,6 +190,21 @@ int main(int argc, char **argv) {
                 if (value > max_value) value = max_value;
 
                 switch (pack.command) {
+                        case CMD_TOGGLE:
+                                if (toggle) {
+                                        saved_toggle_value = get_brightness();
+                                        set_brightness(0);
+                                } else {
+                                        if (saved_toggle_value != 0) {
+                                                set_brightness(
+                                                    saved_toggle_value);
+                                        } else {
+                                                set_brightness(max_value);
+                                        }
+                                }
+                                toggle = !toggle;
+                                break;
+
                         case CMD_SET:
                                 set_brightness(value);
                                 break;

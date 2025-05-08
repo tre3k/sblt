@@ -33,10 +33,10 @@
 #define MAX_BRIGHTNESS_PATH BRIGHTNESS_DEV "max_brightness"
 
 enum {
-        CMD_ECHO,
-        CMD_SET,
-        CMD_CNG,
-        CMD_GET
+        CMD_SET,    // Set absolute value
+        CMD_CNG,    // Change current value
+        CMD_GET,    // Get current value
+        CMD_TOGGLE  // Toggle on/off
 };
 
 struct packet {

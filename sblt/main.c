@@ -35,6 +35,7 @@ int main(int argc, char **argv) {
                     "\t <value>%% - absolute\n"
                     "\t+<value>%% - add value\n"
                     "\t-<value>%% - sub value\n"
+                    "\tt          - toggle, turn on/off\n"
                     "\t\\?        - get current value of brightness\n");
                 exit(EXIT_SUCCESS);
         }
@@ -64,6 +65,11 @@ int main(int argc, char **argv) {
                 case '-':
                         pack.command = CMD_CNG;
                         pack.value = atoi(argv[1]);
+                        break;
+
+                case 't':
+                        pack.command = CMD_TOGGLE;
+                        pack.value = 0;
                         break;
 
                 case '?':
