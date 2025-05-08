@@ -35,7 +35,7 @@ int main(int argc, char **argv) {
                     "\t <value>%% - absolute\n"
                     "\t+<value>%% - add value\n"
                     "\t-<value>%% - sub value\n"
-                    "\tt          - toggle, turn on/off\n"
+                    "\tt         - toggle, turn on/off\n"
                     "\t\\?        - get current value of brightness\n");
                 exit(EXIT_SUCCESS);
         }
